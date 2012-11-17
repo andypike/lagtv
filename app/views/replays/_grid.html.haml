@@ -9,6 +9,8 @@
         %th Title
         %th Category
         %th League
+        %th Players
+        %th Races
         %th Status
     %tbody.clickable
       - @replays.each do |replay|
@@ -21,6 +23,8 @@
             .filename.secondary= replay.filename
           %td= replay.category.name
           %td= replay.league.titleize
+          %td= replay.players
+          %td= races_to_str(replay)
           %td
             = replay.status.titleize
             = "(Expired)" if replay.expired?
