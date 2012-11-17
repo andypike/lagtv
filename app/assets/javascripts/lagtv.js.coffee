@@ -5,13 +5,14 @@ $(document).ready ->
 
   $('.dropdown-toggle').dropdown()
   
-  $('.nav-tabs a').click (e) ->
+  $('.nav-tabs a').click (ev) ->
     e.preventDefault()
     $(this).tab('show')
   
   $('.nav-tabs a:first').tab('show')
 
-  $("[data-href]").click ->
+  $("[data-href]").click (ev) ->
+    return if ev.metaKey || ev.ctrlKey || ev.button == 1
     url = $(this).data("href")
     if(url.length > 0)
       location.href = url
