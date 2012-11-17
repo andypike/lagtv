@@ -24,6 +24,11 @@ feature 'Replay list with permission' do
     Fabricate(:replay, :league => 'master', :title => 'Awesome Normal Game', :category => normal)
     Fabricate(:replay, :status => 'broadcasted', :category => wcf)
     Fabricate(:replay, :expires_at => DateTime.now.utc - 1.year, :category => wcf)
+    Fabricate(:replay, :title => '1234567890123456789012345678901234567890123456789012345678901234567890', :category => wcf)
+    Fabricate(:replay, :replay_file => ActionDispatch::Http::UploadedFile.new(
+        :tempfile => File.new(Rails.root.join("spec/acceptance/support/files/abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij.SC2Replay")),
+        :filename => File.basename(File.new(Rails.root.join("spec/acceptance/support/files/abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij.SC2Replay")))
+    ), :category => wcf)
 
     login_as(admin)
     visit '/'
@@ -39,11 +44,11 @@ feature 'Replay list with permission' do
   end  
 
   scenario 'title with count appears' do
-    page.should have_content('5 Replays')
+    page.should have_content('7 Replays')
   end
 
   scenario 'list all replays' do
-    page.should have_css("table tbody tr", :count => 5)
+    page.should have_css("table tbody tr", :count => 7)
   end
 
   scenario 'search replays' do
@@ -85,9 +90,17 @@ feature 'Replay list with permission' do
     check 'Include Expired Replays'
     click_button 'Search'
 
-    page.should have_css("table tbody tr", :count => 6)
+    page.should have_css("table tbody tr", :count => 8)
     page.should have_css("table tbody tr", :text => '(Expired)')
-  end 
+  end
+
+  scenario 'truncate title to 60 characters' do
+    page.should have_content("123456789012345678901234567890123456789012345678901234567...")
+  end
+
+  scenario 'truncate filename to 60 characters' do
+    page.should have_content("abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefg...")
+  end
 end
 
 feature 'Editing a replay' do
