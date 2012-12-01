@@ -19,9 +19,9 @@ class ReplaysController < ApplicationController
   end
 
   def user_page
-    user = User.find(params[:user_id])
-    authorize! :view, user
-    @replays = user.replays.paginate(:page => params[:page], :per_page => 5)
+    @user = User.find(params[:user_id])
+    authorize! :edit, @user
+    @replays = @user.replays.paginate(:page => params[:page], :per_page => 5, :order => 'created_at desc')
     render :partial => 'page', :layout => false
   end
 

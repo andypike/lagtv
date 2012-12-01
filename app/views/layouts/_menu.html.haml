@@ -4,6 +4,8 @@
       %ul.nav.pull-left
         %li= link_to "Home", main_app.root_url(:protocol => 'http')
         %li= link_to "Forums", main_app.forem_url(:protocol => 'http')
+        %li= link_to "MaximusBlack is Streaming", 'http://twitch.tv/lagtvmaximusblack' if @streams[:maximusblack]
+        %li= link_to "Novawar is Streaming", 'http://twitch.tv/novawar' if @streams[:novawar]
 
         - if can? :manage, User
           %li= link_to "Users", main_app.users_url(:protocol => 'http')

@@ -284,4 +284,22 @@ describe ReplaysController do
       end
     end
   end
+
+  context "when getting more replays from the edit user page" do
+    before do
+      @user = Fabricate.build(:member)
+      @ability.can :edit, @user
+      User.stub(:find) { @user }
+    end
+
+    it "gives a small group of more replays" do
+      10.times do
+        Fabricate.build(:replay, :user => @user)
+      end
+      get :user_page, :user_id => @user.id, :page => 1
+      @controller.should render_template(:page)
+      should assign_to(:user)
+      should assign_to(:replays)
+    end
+  end
 end
