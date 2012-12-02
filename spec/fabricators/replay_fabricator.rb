@@ -15,4 +15,5 @@ Fabricator(:replay) do
   zerg true
   status 'new'
   expires_at Date.today + 7.days
+  average_rating 3
 end

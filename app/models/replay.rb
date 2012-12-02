@@ -64,7 +64,13 @@ class Replay < ActiveRecord::Base
     replays = replays.where(:league => options[:league]) if options[:league].present?
     replays = replays.where(:players => options[:players]) if options[:players].present?
     replays = replays.where(:category_id => options[:category_id]) if options[:category_id].present?
-    replays = replays.where('average_rating >= ?', options[:rating]) if options[:rating].present?
+    if options[:rating].present?
+      if options[:rating].to_i == 0
+        replays = replays.where('average_rating = ?', options[:rating])
+      else
+        replays = replays.where('average_rating >= ?', options[:rating])
+      end
+    end
 
     unless options[:include_expired]
       replays = replays.where("expires_at > ?", DateTime.now.utc)

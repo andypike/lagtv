@@ -23,7 +23,7 @@ feature 'Replay list with permission' do
     Fabricate(:replay, :title => 'super-duper 3v3 game replay', :players => '3v3', :category => wcf)
     Fabricate(:replay, :league => 'master', :title => 'Awesome Normal Game', :category => normal)
     Fabricate(:replay, :status => 'broadcasted', :category => wcf)
-    Fabricate(:replay, :players => '4v4')
+    Fabricate(:replay, :players => '4v4', :average_rating => 0)
     Fabricate(:replay, :expires_at => DateTime.now.utc - 1.year, :category => wcf)
     Fabricate(:replay, :title => '_1234567890123456789012345678901234567890123456789012345678901234567890', :category => wcf)
     Fabricate(:replay, :replay_file => ActionDispatch::Http::UploadedFile.new(
@@ -85,7 +85,16 @@ feature 'Replay list with permission' do
 
     page.should have_css("table tbody tr", :count => 1)
     page.should have_css("table tbody tr", :text => 'Broadcasted')
-  end    
+  end
+
+  scenario 'filter replays by rating' do
+    select 'Unrated', :from => 'rating'
+    click_button 'Search'
+
+    page.should have_css("table tbody tr", :count => 1)
+    page.should have_css("table tbody tr", :text => '4v4')
+    page.should_not have_css("table tbody tr", :text => '3v3')
+  end
 
   scenario 'include expired replays if selected' do
     check 'Include Expired Replays'
