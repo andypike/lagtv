@@ -11,6 +11,8 @@
   = f.input :category_id, :label => "Category", :collection => @categories.map {|c| [ c.name, c.id ] }
   = f.input :league, :collection => Replay::LEAGUES.map {|c| [ c.titleize, c ] }
   = f.input :players, :collection => Replay::PLAYERS
+  = f.input :expansion_pack, :collection => Replay::EXPANSION_PACKS
+
   #races.control-group
     = f.input :protoss
     = f.input :terran

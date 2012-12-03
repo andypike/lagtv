@@ -152,6 +152,11 @@ describe Replay do
     it { @replay.should allow_value("grand_master").for(:league) }
     it { @replay.should_not allow_value("blah").for(:league) }
 
+    it { @replay.should validate_presence_of(:expansion_pack) }
+    it { @replay.should allow_value("WoL").for(:expansion_pack) }
+    it { @replay.should allow_value("HotS").for(:expansion_pack) }
+    #it { @replay.should allow_value("LotV").for(:expansion_pack) }
+
     it { @replay.should validate_presence_of(:status) }    
     it { @replay.should allow_value("new").for(:status) }
     it { @replay.should allow_value("rejected").for(:status) }

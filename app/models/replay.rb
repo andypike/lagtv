@@ -4,11 +4,12 @@ class Replay < ActiveRecord::Base
   belongs_to :category
   belongs_to :user
   has_many :comments, :order => 'created_at DESC'
-  attr_accessible :description, :league, :players, :protoss, :terran, :title, :zerg, :replay_file, :category_id, :status
+  attr_accessible :description, :league, :players, :protoss, :terran, :title, :zerg, :replay_file, :category_id, :status, :expansion_pack
 
   LEAGUES = %w{bronze silver gold platinum diamond master grand_master}
   PLAYERS = %w{1v1 2v2 3v3 4v4 FFA}
   STATUSES = %w{new rejected suggested broadcasted}
+  EXPANSION_PACKS = %w{WoL HotS} # third will be LotV
   EXPIRY_DAYS = 14
   WEEKLY_UPLOAD_LIMIT = 3
 
@@ -20,19 +21,21 @@ class Replay < ActiveRecord::Base
     :players => '',
     :category_id => '',
     :include_expired => false,
-    :rating => ''
+    :rating => '',
+    :expansion_pack => ''
   }
 
   mount_uploader :replay_file, ReplayFileUploader
 
-  validates :replay_file, :presence => true
-  validates :title,       :presence => true
-  validates :category_id, :presence => true
-  validates :user_id,     :presence => true
-  validates :expires_at,  :presence => true
-  validates :players,     :presence => true, :inclusion => { :in => PLAYERS }
-  validates :league,      :presence => true, :inclusion => { :in => LEAGUES }
-  validates :status,      :presence => true, :inclusion => { :in => STATUSES }
+  validates :replay_file,    :presence => true
+  validates :title,          :presence => true
+  validates :category_id,    :presence => true
+  validates :user_id,        :presence => true
+  validates :expires_at,     :presence => true
+  validates :players,        :presence => true, :inclusion => { :in => PLAYERS }
+  validates :league,         :presence => true, :inclusion => { :in => LEAGUES }
+  validates :status,         :presence => true, :inclusion => { :in => STATUSES }
+  validates :expansion_pack, :presence => true, :inclusion => { :in => EXPANSION_PACKS }
   validate :disallow_3_races_in_1v1
 
   def disallow_3_races_in_1v1
@@ -65,6 +68,7 @@ class Replay < ActiveRecord::Base
     replays = replays.where(:players => options[:players]) if options[:players].present?
     replays = replays.where(:category_id => options[:category_id]) if options[:category_id].present?
     replays = replays.where('average_rating >= ?', options[:rating]) if options[:rating].present?
+    replays = replays.where(:expansion_pack => options[:expansion_pack]) if options[:expansion_pack].present?
 
     unless options[:include_expired]
       replays = replays.where("expires_at > ?", DateTime.now.utc)

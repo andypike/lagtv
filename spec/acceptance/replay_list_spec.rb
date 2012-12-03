@@ -24,6 +24,7 @@ feature 'Replay list with permission' do
     Fabricate(:replay, :league => 'master', :title => 'Awesome Normal Game', :category => normal)
     Fabricate(:replay, :status => 'broadcasted', :category => wcf)
     Fabricate(:replay, :players => '4v4')
+    Fabricate(:replay, :title => 'HotS game', :expansion_pack => 'HotS')
     Fabricate(:replay, :expires_at => DateTime.now.utc - 1.year, :category => wcf)
     Fabricate(:replay, :title => '_1234567890123456789012345678901234567890123456789012345678901234567890', :category => wcf)
     Fabricate(:replay, :replay_file => ActionDispatch::Http::UploadedFile.new(
@@ -45,11 +46,11 @@ feature 'Replay list with permission' do
   end  
 
   scenario 'title with count appears' do
-    page.should have_content('8 Replays')
+    page.should have_content('9 Replays')
   end
 
   scenario 'list all replays' do
-    page.should have_css("table tbody tr", :count => 8)
+    page.should have_css("table tbody tr", :count => 9)
   end
 
   scenario 'search replays' do
@@ -85,13 +86,21 @@ feature 'Replay list with permission' do
 
     page.should have_css("table tbody tr", :count => 1)
     page.should have_css("table tbody tr", :text => 'Broadcasted')
-  end    
+  end
+
+  scenario 'filter replays by expansion pack' do
+    select 'HotS'
+    click_button 'Search'
+
+    page.should have_css("table tbody tr", :count => 1)
+    page.should have_css("table tbody tr", :text => 'HotS')
+  end
 
   scenario 'include expired replays if selected' do
     check 'Include Expired Replays'
     click_button 'Search'
 
-    page.should have_css("table tbody tr", :count => 9)
+    page.should have_css("table tbody tr", :count => 10)
     page.should have_css("table tbody tr", :text => '(Expired)')
   end
 

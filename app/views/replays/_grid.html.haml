@@ -11,6 +11,7 @@
         %th League
         %th Players
         %th Races
+        %th Expansion Pack
         %th Status
     %tbody.clickable
       - @replays.each do |replay|
@@ -25,6 +26,7 @@
           %td= replay.league.titleize
           %td= replay.players
           %td= races_to_str(replay)
+          %td= replay.expansion_pack
           %td
             = replay.status.titleize
             = "(Expired)" if replay.expired?

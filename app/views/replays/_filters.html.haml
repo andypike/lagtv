@@ -6,7 +6,8 @@
       = select_tag "league", options_for_select(Replay::LEAGUES.map {|l| [ l.titleize, l ]}, @filters[:league]), :prompt => 'All leagues'
       = select_tag "players", options_for_select(Replay::PLAYERS, @filters[:players]), :prompt => 'All players'
       = select_tag "category_id", options_for_select(@categories.map {|c| [ c.name, c.id ]}, @filters[:category_id]), :prompt => 'All categories'
-      = select_tag "rating", options_for_select((1..5).map {|r| [ "At least #{r} stars", r ]}.reverse, @filters[:rating]), :prompt => 'All ratings'
+      = select_tag "rating", options_for_select((1..5).map {|r| [ "At least #{r} stars", r ]}.reverse + [['Unrated', 0]], @filters[:rating]), :prompt => 'All ratings'
+      = select_tag "expansion_pack", options_for_select(Replay::EXPANSION_PACKS.map {|ep| [ ep, ep ]}, @filters[:expansion_pack]), :prompt => 'All Expansion Packs'
       .statuses
         - Replay::STATUSES.each_with_index do |status, i|
           .check_box
