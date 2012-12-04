@@ -1,4 +1,6 @@
-class ApplicationController < ActionController::Base  
+class ApplicationController < ActionController::Base
+  before_filter :get_stream_status
+
   def forem_user
     current_user
   end
@@ -30,4 +32,9 @@ class ApplicationController < ActionController::Base
     end
 
     helper_method :current_user
+
+    def get_stream_status
+      @streams = {:maximusblack => Stream.find_by_name('maximusblack').live,
+                  :novawar      => Stream.find_by_name('novawar').live}
+    end
 end

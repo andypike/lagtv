@@ -20,6 +20,8 @@ Spork.prefork do
   # in spec/support/ and its subdirectories.
   Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
+  FakeWeb.allow_net_connect = false
+
   RSpec.configure do |config|
     config.mock_with :rspec
     config.use_transactional_fixtures = true
@@ -32,6 +34,9 @@ Spork.prefork do
 
     config.before(:each) do
       DatabaseCleaner.start
+      FakeWeb.clean_registry
+      Fabricate(:stream, :name => 'maximusblack')
+      Fabricate(:stream, :name => 'novawar')
     end
 
     config.after(:each) do
