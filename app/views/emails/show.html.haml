@@ -1,0 +1,12 @@
+- if @email.done?
+  %p Your email has been sent. Statistics are shown below.
+- else
+  %p Your email is being processed and sent
+%p= "Email #{@email.id}: #{@email.subject}"
+%p= "Started at: #{@email.started_at || "Hasn't started yet"}"
+%p= "Ended at: #{@email.ended_at || (@email.started_at ? 'Still sending...' : "Hasn't started yet")}"
+%p= "Total sent: #{@email.total_sent}"
+%p= "Total remaining: #{remaining_str(@email)}"
+%p= "Estimated sending rate: #{@email.estimated_send_rate} per second"
+%p= "Estimated time of completion: #{@email.estimated_completion_str}"
+%p= link_to "New email", new_email_path

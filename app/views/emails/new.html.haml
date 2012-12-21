@@ -1,0 +1,17 @@
+.row
+  .span9
+    %h1 New Email
+
+    = simple_form_for @email, :html => { :class => 'form-horizontal email_form' } do |f|
+      = f.input :subject, :input_html => {:maxlength => 78, :size => 120}
+      = f.input :body, :as => :text, :input_html => {:cols => 100}
+      = f.input :member, :as => :boolean
+      = f.input :analyst, :as => :boolean
+      = f.input :dev_team, :as => :boolean
+      = f.input :moderator, :as => :boolean
+      = f.input :community_manager, :as => :boolean
+      = f.input :admin, :as => :boolean
+
+      .form-actions
+        = f.button :submit, :value => "Send", :class => "btn btn-large btn-primary"
+        = link_to "Cancel", root_path, :class => "btn btn-large"

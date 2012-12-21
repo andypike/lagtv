@@ -115,3 +115,26 @@
     }
   }
 }
+
+.email_form {
+  input, textarea {
+    width: 600px;
+  }
+
+  .btn {
+    width: auto;
+  }
+
+  .roles {
+    .role {
+      height: 30px;
+      input {
+        width: auto;
+      }
+    }
+  }
+
+  .form-actions {
+    clear: both;
+  }
+}

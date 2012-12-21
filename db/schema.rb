@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121202204743) do
+ActiveRecord::Schema.define(:version => 20121220185711) do
 
   create_table "announcements", :force => true do |t|
     t.text     "message",    :null => false
@@ -36,6 +36,39 @@ ActiveRecord::Schema.define(:version => 20121202204743) do
     t.datetime "created_at",                :null => false
     t.datetime "updated_at",                :null => false
     t.integer  "rating",     :default => 0, :null => false
+  end
+
+  create_table "delayed_jobs", :force => true do |t|
+    t.integer  "priority",   :default => 0
+    t.integer  "attempts",   :default => 0
+    t.text     "handler"
+    t.text     "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string   "locked_by"
+    t.string   "queue"
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
+  end
+
+  add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
+
+  create_table "emails", :force => true do |t|
+    t.string   "subject",                          :null => false
+    t.text     "body",                             :null => false
+    t.integer  "total_sent",        :default => 0, :null => false
+    t.integer  "total_recipients",  :default => 0, :null => false
+    t.boolean  "member"
+    t.boolean  "analyst"
+    t.boolean  "dev_team"
+    t.boolean  "moderator"
+    t.boolean  "community_manager"
+    t.boolean  "admin"
+    t.datetime "started_at"
+    t.datetime "ended_at"
+    t.datetime "created_at",                       :null => false
+    t.datetime "updated_at",                       :null => false
   end
 
   create_table "forem_categories", :force => true do |t|
@@ -149,7 +182,7 @@ ActiveRecord::Schema.define(:version => 20121202204743) do
     t.string   "status",         :default => "new", :null => false
     t.datetime "expires_at",                        :null => false
     t.float    "average_rating", :default => 0.0,   :null => false
-    t.string   "expansion_pack", :default => ""
+    t.string   "expansion_pack", :default => "WoL"
   end
 
   create_table "streams", :force => true do |t|
