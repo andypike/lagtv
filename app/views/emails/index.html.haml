@@ -1,0 +1,26 @@
+#email_index
+  %h2 Emails
+  - if @emails.blank?
+    %p No emails to list
+  - else
+    %table
+      %thead
+        %td ID
+        %td Subject
+        %td Created At
+        %td Total Sent
+        %td Total Recipients
+        %td Started At
+        %td Ended At
+        %td Status
+      %tbody
+        - @emails.each do |email|
+          %tr
+            %td= link_to email.id, email_path(email)
+            %td= email.subject
+            %td= email.created_at
+            %td= email.total_sent
+            %td= email.total_recipients
+            %td= email.started_at
+            %td= email.ended_at
+            %td= status(email)

@@ -37,4 +37,6 @@ Lagtv::Application.routes.draw do
       get 'hide'
     end
   end
+
+  resources :emails, :only => [:new, :create, :show, :index]
 end
