@@ -1,1 +1,9 @@
 $("#announcement_<%= j params[:id] %>").fadeOut();
+var className = $("body").attr('class').match(/announcement\d/)[0];
+var numAnnouncements = parseInt(className.charAt(className.length - 1));
+
+if (numAnnouncements == 1) {
+  $("body").removeClass('announcement1');
+} else {
+  $("body").toggleClass(className + " announcement" + (numAnnouncements - 1));
+}

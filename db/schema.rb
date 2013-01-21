@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121202204743) do
+ActiveRecord::Schema.define(:version => 20130116222733) do
 
   create_table "announcements", :force => true do |t|
     t.text     "message",    :null => false
@@ -36,6 +36,18 @@ ActiveRecord::Schema.define(:version => 20121202204743) do
     t.datetime "created_at",                :null => false
     t.datetime "updated_at",                :null => false
     t.integer  "rating",     :default => 0, :null => false
+  end
+
+  create_table "emails", :force => true do |t|
+    t.string   "subject",                         :null => false
+    t.text     "body",                            :null => false
+    t.integer  "total_sent",       :default => 0, :null => false
+    t.integer  "total_recipients", :default => 0, :null => false
+    t.datetime "started_at"
+    t.datetime "ended_at"
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
+    t.string   "role"
   end
 
   create_table "forem_categories", :force => true do |t|
@@ -149,7 +161,7 @@ ActiveRecord::Schema.define(:version => 20121202204743) do
     t.string   "status",         :default => "new", :null => false
     t.datetime "expires_at",                        :null => false
     t.float    "average_rating", :default => 0.0,   :null => false
-    t.string   "expansion_pack", :default => ""
+    t.string   "expansion_pack", :default => "WoL"
   end
 
   create_table "streams", :force => true do |t|

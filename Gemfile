@@ -23,6 +23,7 @@ gem 'rack-mini-profiler'
 gem 'numbers_and_words'
 gem 'sys-filesystem'
 gem 'whenever', :require => false
+gem 'resque'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'

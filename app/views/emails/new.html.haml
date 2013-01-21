@@ -1,0 +1,12 @@
+.row
+  .span9
+    %h1 Send a new email to members
+
+    = simple_form_for @email, :html => { :class => 'form-horizontal email_form' } do |f|
+      = f.input :subject, :input_html => {:maxlength => 78, :size => 120}
+      = f.input :body, :as => :text, :input_html => {:cols => 100}
+      = f.input :role, :collection => (User::ROLES - ["member"]).map {|c| [ c.titleize, c ] }, :hint => "Members cannot be selected because the volume would be too high for this method of sending. If you need to do that, we will need to integrate with a bulk email sending service."
+
+      .form-actions
+        = f.button :submit, :value => "Send", :class => "btn btn-large btn-primary"
+        = link_to "Cancel", emails_path, :class => "btn btn-large"

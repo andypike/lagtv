@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   before_filter :get_stream_status
+  before_filter :get_announcements
 
   def forem_user
     current_user
@@ -36,5 +37,9 @@ class ApplicationController < ActionController::Base
     def get_stream_status
       @streams = {:maximusblack => Stream.find_by_name('maximusblack').live,
                   :novawar      => Stream.find_by_name('novawar').live}
+    end
+
+    def get_announcements
+      @current_announcements = Announcement.current(cookies.signed[:hidden_announcement_ids])
     end
 end

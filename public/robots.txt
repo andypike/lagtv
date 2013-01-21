@@ -4,3 +4,4 @@ Disallow: /users
 Disallow: /categories
 Disallow: /announcements
 Disallow: /my_profile
+Disallow: /email

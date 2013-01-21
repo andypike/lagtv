@@ -1,8 +1,5 @@
 require "bundler/capistrano"
 
-# set :whenever_command, "bundle exec whenever"
-# require "whenever/capistrano"
-
 desc "Run on UAT server" 
 task :uat do 
   server "50.116.25.171", :web, :app, :db, primary: true
@@ -81,6 +78,11 @@ namespace :deploy do
   task :whenever do
     run "cd #{current_path}; bundle exec whenever --update-crontab"
   end  
+
+  desc "Start resque queues"
+  task :start_resque do
+    run "cd #{current_path}; RAILS_ENV=production QUEUE=group_email bundle exec rake environment resque:work"
+  end
 end
 
 # $ cap uat rails:console

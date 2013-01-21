@@ -13,6 +13,8 @@
           %li= link_to "Categories", main_app.categories_url(:protocol => 'http')
         - if can? :manage, Announcement
           %li= link_to "Announcements", main_app.announcements_url(:protocol => 'http')
+        - if can? :manage, Email
+          %li= link_to "Emails", main_app.emails_url(:protocol => 'http')
     
       %ul.nav.pull-right
         - if current_user
@@ -25,13 +27,13 @@
           %li= link_to "Login", secure_login_path
           %li= link_to "Register", secure_register_path
 
-- current_announcements.each do |announcement|
-  .announcement{ :id => "announcement_#{announcement.id}" }
-    .container
-      - if announcement.url.present?
-        = link_to announcement.message, announcement.url
-      - else
-        %span.message= announcement.message
-        
-      = link_to main_app.hide_announcement_path(announcement), :class => 'pull-right', :title => 'Hide this announcement', :remote => true do
-        %i.icon-remove.icon-white
+  - @current_announcements.each do |announcement|
+    .announcement{ :id => "announcement_#{announcement.id}" }
+      .container
+        - if announcement.url.present?
+          = link_to announcement.message, announcement.url
+        - else
+          %span.message= announcement.message
+
+        = link_to main_app.hide_announcement_path(announcement), :class => 'pull-right', :title => 'Hide this announcement', :remote => true do
+          %i.icon-remove.icon-white
