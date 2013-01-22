@@ -86,4 +86,15 @@ describe PagesController do
       end
     end
   end
+
+  context "When showing stream information" do
+    it "should assign @streams when nobody is streaming" do
+      Stream.stub(maximusblack: Fabricate(:maximusblack_stream))
+      Stream.stub(novawar: Fabricate(:novawar_stream))
+      Stream.stub(lagtv: Fabricate(:lagtv_stream))
+      get :streams
+      should assign_to(:streams)
+      should respond_with(:success)
+    end
+  end
 end

@@ -5,6 +5,7 @@ testing_server: false
 privacy_link: "/forums/forums/29/topics/10"
 terms_and_conditions_link: "/forums/forums/29/topics/9"
 support_category_id: 3
+resque_password: "andy"
 development:
   host: "localhost:3000"
 test:

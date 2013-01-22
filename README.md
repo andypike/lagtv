@@ -43,6 +43,9 @@ We haven't tried setting up the development environment on Windows, but OSX and 
 8. See the site running at http://localhost:3000
 9. Run tests with ```$ rake```
 10. Start guard for fast test running while developing with ```$ bundle exec guard```
+11. Install redis via homebrew
+12. Start redis with ```$ redis-server /usr/local/etc/redis.conf```
+13. Start resque worker for emails with ```$ QUEUE=group_email rake environment resque:work```
 
 Once you are all setup, pick an issue from the current release (see below) and code away :smile:. If you are unsure of what to work on or need help setting up, post a message in the [discussion group](http://groups.google.com/group/lagtv-website?hl=en) and one of us will help you get started.
 
@@ -80,7 +83,7 @@ Release Planning
 Next Release
 ------------
 
-The next release is [1.3.0](https://github.com/andypike/lagtv/issues?milestone=13&state=open)
+The next release is [1.3.0](https://github.com/andypike/lagtv/issues?milestone=14&state=open)
 
 Process
 -------

@@ -6,6 +6,7 @@ class Stream < ActiveRecord::Base
   def self.update_live_state
     poll('lagtvmaximusblack', 'maximusblack')
     poll('novawar', 'novawar')
+    poll('lifesaglitchtv', 'lagtv')
   end
 
   def self.poll(stream, person)
@@ -30,5 +31,9 @@ class Stream < ActiveRecord::Base
 
   def self.novawar
     Stream.find_by_name('novawar')
+  end
+
+  def self.lagtv
+    Stream.find_by_name('lagtv')
   end
 end

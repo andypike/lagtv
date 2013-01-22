@@ -1,0 +1,23 @@
+#email_show
+  .row
+    .span8
+      %h1= @email.subject
+      %pre= @email.body
+      %p= link_to "Back", emails_path, :class => 'btn'
+
+    .span4
+      - if @email.done?
+        %h3 Your email has been sent.
+      - else
+        %h3 Your email is being processed.
+        
+      %p= "Sent to: #{@email.role.titleize}s"  
+      %p= "Status: #{status(@email)}"  
+      %p= "Started: #{@email.started_at || "Hasn't started yet"}"
+      %p= "Ended: #{@email.ended_at || (@email.started_at ? 'Still sending...' : "Hasn't started yet")}"
+      %p= "Total emails sent: #{@email.total_sent}"
+      %p= "Total remaining: #{remaining_str(@email)}"
+      %p= "Sending rate: #{@email.estimated_send_rate} per second"
+      %p= "Time of completion: #{@email.estimated_completion_str}"
+
+      

@@ -19,7 +19,7 @@ feature 'Homepage renders' do
   end
 
   scenario '24 recent starcraft videos' do
-    page.should have_css(".lagtv1 .video_thumbnail", :count=>24)
+    page.should have_css(".lagtv1 .video_thumbnail", count: 24)
   end
 
   scenario 'lets play tab' do
@@ -31,6 +31,13 @@ feature 'Homepage renders' do
   end
 
   scenario '24 recent lets play videos' do
-    page.should have_css(".lagtv2 .video_thumbnail", :count=>24)
+    page.should have_css(".lagtv2 .video_thumbnail", count: 24)
+  end
+
+  scenario 'lagtv is streaming' do
+    # it'd be nice to check the title here too, but I can't figure out how
+    page.should have_css(".twitch.live", text: 'L')
+    page.should have_css(".twitch.offline", text: 'M')
+    page.should have_css(".twitch.offline", text: 'N')
   end
 end

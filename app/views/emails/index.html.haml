@@ -1,0 +1,30 @@
+#email_index
+  .row
+    .span9
+
+      %h1 Emails
+      - if @emails.blank?
+        %p No emails to list
+      - else
+        %table.table.table-striped.table-bordered
+          %thead
+            %th Subject
+            %th Recipients
+            %th Total Sent
+            %th Sent On
+            %th Status
+          %tbody.clickable
+            - @emails.each do |email|
+              %tr{ :data => { :href => email_path(email) } }
+                %td= link_to email.subject, email_path(email)
+                %td= "#{email.role.titleize} (#{email.total_recipients})"
+                %td= email.total_sent
+                %td= email.started_at.strftime('%d %b %Y') if email.started_at
+                %td= status(email)
+
+    .span3
+
+      .side_panel
+        %h3 Email Members
+        %p Send an email to a group of members by role.
+        %p= link_to "Send a new email", new_email_path, :class => 'btn'

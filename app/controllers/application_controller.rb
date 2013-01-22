@@ -34,7 +34,8 @@ class ApplicationController < ActionController::Base
     helper_method :current_user
 
     def get_stream_status
-      @streams = {:maximusblack => Stream.find_by_name('maximusblack').live,
-                  :novawar      => Stream.find_by_name('novawar').live}
+      @streams = {:maximusblack => Stream.maximusblack.live,
+                  :novawar      => Stream.novawar.live,
+                  :lagtv        => Stream.lagtv.live}
     end
 end

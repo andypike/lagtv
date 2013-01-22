@@ -30,18 +30,17 @@ header {
     border-bottom: 6px solid #53bddb;
 
     .twitch {
-      margin-top: 8px;
+      margin-top: 35px;
+      font-size: 25px;
 
       a {
-        display: block;
         height: 33px;
+        padding: 10px 15px;
         margin-top: 2px;
         color: #fff;
         @include border-radius(20px);
 
         span {
-          display: block;
-          padding: 7px 20px 0 20px;
           height: 26px;
         }
       }

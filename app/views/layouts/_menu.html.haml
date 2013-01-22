@@ -13,6 +13,8 @@
           %li= link_to "Categories", main_app.categories_url(:protocol => 'http')
         - if can? :manage, Announcement
           %li= link_to "Announcements", main_app.announcements_url(:protocol => 'http')
+        - if can? :manage, Email
+          %li= link_to "Emails", main_app.emails_url(:protocol => 'http')
     
       %ul.nav.pull-right
         - if current_user
