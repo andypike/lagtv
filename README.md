@@ -28,7 +28,7 @@ If you know Ruby on Rails then you can help. Just fork this repro then create a 
 
 Make sure your changes are covered by test. Pull requests without tests will be rejected.
 
-We haven't tried setting up the development environment on Windows, but OSX and Linux will be fine. Here's how to get setup:
+We haven't tried setting up the development environment on Windows, but OSX and Linux will be fine. Here's how to get setup (Docker instructions below):
 
 1. Install Ruby (we use RVM)
 2. Install Postgresql (we use Homebrew)
@@ -46,6 +46,13 @@ We haven't tried setting up the development environment on Windows, but OSX and 
 11. Install redis via homebrew
 12. Start redis with ```$ redis-server /usr/local/etc/redis.conf```
 13. Start resque worker for emails with ```$ QUEUE=group_email rake environment resque:work```
+
+Docker
+------
+
+1. Install Docker & Docker Compose
+2. Run ```$ docker-compose up```
+3. See the site running at http://localhost:3000
 
 Once you are all setup, pick an issue from the current release (see below) and code away :smile:. If you are unsure of what to work on or need help setting up, post a message in the [discussion group](http://groups.google.com/group/lagtv-website?hl=en) and one of us will help you get started.
 
