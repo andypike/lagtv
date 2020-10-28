@@ -1,0 +1,7 @@
+tmp/
+log/
+docker*
+Docker*
+.dockerignore
+how_to_install.txt
+README.md

@@ -1,0 +1,23 @@
+version: "3.8"
+
+services:
+  app:
+    build: .
+    ports:
+      - ${PORT:-3000}:3000
+    depends_on:
+      - db
+    volumes:
+      - ./:/app
+
+  db:
+    image: postgres:9.6.19-alpine
+    environment:
+      POSTGRES_DB: lagtv_development 
+      POSTGRES_USER: lagtv
+      POSTGRES_PASSWORD: password
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:

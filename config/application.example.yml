@@ -1,5 +1,5 @@
-is_human_salt: "931158c4979ed5ad247..."
-secret_token: "881a29cb89b82bc4a76..."
+is_human_salt: ""
+secret_token: ""
 ga_tracker: "12345"
 testing_server: false
 privacy_link: "/forums/forums/29/topics/10"
